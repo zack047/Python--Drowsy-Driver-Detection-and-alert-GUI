@@ -54,7 +54,7 @@
 9. **Run the Application**:
    - Launch the application using Streamlit:
      ```
-     streamlit run Eye_patch_extractor_&_GUI.py
+     streamlit run "Eye_patch_extractor_&_GUI.py"
      ```
    - This should start the web application, and you can access it through the URL provided in the terminal.
 
