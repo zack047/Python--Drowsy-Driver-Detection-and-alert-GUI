@@ -1,0 +1,23 @@
+https://github.com/zack047/Python--Drowsy-Driver-Detection-and-alert-GUI
+
+python -m venv .venv
+
+.venv\Scripts\activate
+
+python -m pip install --upgrade pip
+
+pip install -r requirements.txt
+
+pip uninstall protobuf
+
+Y
+
+pip install protobuf==3.20.*
+
+pip uninstall click
+
+Y
+
+pip install click==8.0.4
+
+streamlit run "Eye_patch_extractor_&_GUI.py"
