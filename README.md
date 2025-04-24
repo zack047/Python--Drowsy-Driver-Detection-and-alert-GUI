@@ -15,7 +15,7 @@
    - Navigate to the directory where you want to clone the repository.
    - Run the following command to clone the repository:
      ```
-     git clone https://github.com/mayureshagashe2105/HackDSC2021-Drowsiness-Detection-Web-app.git
+     git clone https://github.com/zack047/Python--Drowsy-Driver-Detection-and-alert-GUI
      ```
 
 5. **Navigate to the Project Directory**:
@@ -35,12 +35,12 @@
 7. **Install Required Dependencies**: [Already installed in Environment run if not working]
    - Ensure that the `requirements.txt` file is present in the project directory. This file should contain:
      ```
-     opencv_python==4.5.1.48
-     tensorflow_gpu==2.3.1
-     numpy==1.18.5
-     pandas==1.1.4
-     streamlit==0.73.1
-     tensorflow==2.4.1
+     opencv-python==4.5.1.48
+   tensorflow-gpu==2.3.1
+   numpy==1.18.5
+   pandas==1.1.4
+   streamlit==0.73.1
+
      ```
    - Install the dependencies using pip:
      ```
