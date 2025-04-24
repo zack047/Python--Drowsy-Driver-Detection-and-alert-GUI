@@ -32,7 +32,7 @@ nav_choice = st.sidebar.radio('Navigation', ('Home', 'Sleep Detection', 'Help Us
 # Home page
 if nav_choice == 'Home':
     st.header('Prevents sleep deprivation road accidents, by alerting drowsy drivers.')
-    st.image('ISHN0619_C3_pic.jpg')
+    st.image('test.jpg')
     st.markdown('<b>In accordance with the survey taken by the Times Of India, about 40 % of road </b>'
                 '<b>accidents are caused</b> '
                 '<b>due to sleep deprivation & fatigued drivers. In order to address this issue, this app will </b>'
@@ -129,10 +129,12 @@ elif nav_choice == 'Sleep Detection':
         # If found drowsy, then make a beep sound to alert the driver
         if decision == 0:
             st.error('Eye(s) are closed')
-            winsound.Beep(2500, 2000)
-
+            for _ in range(10):  # 20 beeps for 10 seconds (500ms each)
+                winsound.Beep(4000, 500)  # Higher frequency (3000 Hz) and 500ms duration
         else:
             st.success('Eyes are Opened')
+
+        # Warning message for retry
         st.warning('Please select "Stop" and then "Start" to try again')
 
 # Help Us Improve page
