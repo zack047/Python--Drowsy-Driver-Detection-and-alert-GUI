@@ -1,6 +1,7 @@
 https://github.com/zack047/Python--Drowsy-Driver-Detection-and-alert-GUI
 
-python -m venv .venv
+py -3.8 -m venv .venv
+
 
 .venv\Scripts\activate
 
