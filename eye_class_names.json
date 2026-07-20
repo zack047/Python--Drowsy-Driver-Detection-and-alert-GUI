@@ -1,0 +1,9 @@
+{
+  "class_names": [
+    "closed_eye",
+    "open_eye"
+  ],
+  "open_class_index": 1,
+  "closed_class_index": 0,
+  "model_type": "sklearn_rf"
+}

@@ -9,16 +9,13 @@ python -m pip install --upgrade pip
 
 pip install -r requirements.txt
 
-pip uninstall protobuf
+For NVIDIA GPU support on native Windows:
+1. Install TensorFlow 2.10.1 from requirements.txt.
+2. Install CUDA Toolkit 11.2.
+3. Install cuDNN 8.1.
+4. Make sure the CUDA and cuDNN bin folders are on PATH.
+5. Reopen PowerShell and verify `nvidia-smi` works.
 
-Y
-
-pip install protobuf==3.20.*
-
-pip uninstall click
-
-Y
-
-pip install click==8.0.4
+If GPU is still skipped, use the CPU path or run inside WSL2.
 
 streamlit run "Eye_patch_extractor_&_GUI.py"

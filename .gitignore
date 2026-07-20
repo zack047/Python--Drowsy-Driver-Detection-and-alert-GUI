@@ -1,2 +1,3 @@
 .venv/Lib/site-packages/certifi/py.typed
 .venv/*
+/archive
