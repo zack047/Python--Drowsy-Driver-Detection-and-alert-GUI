@@ -61,9 +61,9 @@ print(f"Class mapping: {class_names}, open={open_class_index}, closed={closed_cl
 
 MODEL_INPUT_SIZE = (86, 86)
 EYE_MIN_REL_AREA = 0.03
-EYE_OPEN_THRESHOLD = 0.62
-FRAME_OPEN_THRESHOLD = 0.58
-PREDICTION_MARGIN = 0.12
+EYE_OPEN_THRESHOLD = 0.45     # More sensitive threshold for open eye detection
+FRAME_OPEN_THRESHOLD = 0.45   # Lower threshold to detect open eyes
+PREDICTION_MARGIN = 0.05      # Lower margin for better sensitivity
 
 
 def get_columns(count):
@@ -80,6 +80,12 @@ def preprocess_eye_patch(eye_patch):
     eye_patch = cv2.resize(eye_patch, MODEL_INPUT_SIZE)
     if not class_names:
         return eye_patch
+    # The training dataset (archive/) is grayscale-only (R=G=B in every sample,
+    # captured on an IR/monochrome camera). A color webcam frame carries chrominance
+    # the model never saw, which corrupts the color-histogram features below.
+    # Desaturating here keeps the live feed in the same domain as training.
+    gray = cv2.cvtColor(eye_patch, cv2.COLOR_BGR2GRAY)
+    eye_patch = cv2.cvtColor(gray, cv2.COLOR_GRAY2BGR)
     lab = cv2.cvtColor(eye_patch, cv2.COLOR_BGR2LAB)
     l_channel, a_channel, b_channel = cv2.split(lab)
     clahe = cv2.createCLAHE(clipLimit=2.0, tileGridSize=(8, 8))
@@ -267,14 +273,15 @@ def classify_frame(frame):
     left_margin = left_open_prob - left_closed_prob
     right_margin = right_open_prob - right_closed_prob
     mean_open_prob = (left_open_prob + right_open_prob) / 2.0
-    frame_open = (
-        mean_open_prob >= FRAME_OPEN_THRESHOLD
-        and left_margin >= PREDICTION_MARGIN
-        and right_margin >= PREDICTION_MARGIN
-    ) or (
-        left_open_prob >= EYE_OPEN_THRESHOLD
-        and right_open_prob >= EYE_OPEN_THRESHOLD
-    )
+
+    # Simplified logic: Eyes are open if mean probability is above threshold
+    frame_open = mean_open_prob >= FRAME_OPEN_THRESHOLD
+
+    # Debug output
+    print(f"DEBUG: left_open={left_open_prob:.3f}, left_closed={left_closed_prob:.3f}")
+    print(f"DEBUG: right_open={right_open_prob:.3f}, right_closed={right_closed_prob:.3f}")
+    print(f"DEBUG: mean_open_prob={mean_open_prob:.3f}, threshold={FRAME_OPEN_THRESHOLD}")
+    print(f"DEBUG: frame_open={frame_open}")
 
     display_frame = frame.copy()
     cv2.rectangle(display_frame, (x1, y1), (x2, y2), (255, 0, 0), 3)
